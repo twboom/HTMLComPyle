@@ -1,2 +1,2 @@
 # HTMLComPyle
-A static site generator in Python, but badly made
+A static site generator in Python, but badly made...
