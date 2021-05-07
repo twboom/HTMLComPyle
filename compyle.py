@@ -7,15 +7,34 @@ def compilePage(file):
 
 
 # Get the files to compile
+# Returns list of path (e.g. ['pages/index.html', 'pages/about.html'])
 def getFile(dir):
     struct = dir.split('/')
 
-    file = struct[-1] # Filename and extension
+    name = struct[-1] # Filename and extension in list 
     del struct[-1] # Folders in a list
+
+    files = []
 
     path = '/'
     path = path.join(struct) # Folders in a strings, seperated with a '/'
-    print(path)
+
+    # Get all files if all files of directory are required
+    if name.split('.')[0] == '*':
+        for file in os.listdir(path):
+
+            # Check if path is a directory
+            if os.path.isdir(f'{path}/{file}'): continue
+
+            # Error if file extension is not HTML
+            if file.split('.')[-1] != 'html':
+                print(f'The file {path}/{file} does not have the HTML extension, the build will continue. There might be errors in the output.')
+            
+            files.append(file)
+    else:
+        files.append(name)
+
+    return [f'{path}/{this}' for this in files]
 
 
 # Export the files to the output folder
@@ -28,4 +47,4 @@ def exportPage(content, location, name, extension):
 pages = open('pages.config', 'r').readlines()
 pages = [i.strip() for i in pages]
 
-getFile(pages[0])
+print(getFile(pages[0]))

@@ -1,0 +1,5 @@
+# Files are ignored due to irrelance for the actual development
+output
+pages
+templates
+pages.config
