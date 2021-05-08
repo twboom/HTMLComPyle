@@ -1,5 +1,6 @@
 import sys
 import os
+import shutil
 
 # Compile the files
 # Returns HTML as string
@@ -63,8 +64,12 @@ def getFile(dir):
 # Export the files to the output folder
 def exportPage(content, location, name):
 
-    # Check if output folder exists
-    if not os.path.isdir(location): os.mkdir(location)
+    try:
+        shutil.rmtree(location)
+    except:
+        pass
+
+    os.makedirs(location, exist_ok=True)
 
 
 
