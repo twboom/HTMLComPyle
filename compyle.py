@@ -21,7 +21,8 @@ def compilePage(path):
 
         else: output.append(line)
 
-    #[print(line) for line in output]
+    output = ''.join(output)
+    print(output)
 
 
 # Get the files to compile
