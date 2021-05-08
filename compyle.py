@@ -34,7 +34,7 @@ def compilePage(path):
 def getFile(dir):
     struct = dir.split('/')
 
-    name = struct[-1] # Filename and extension in list 
+    name = struct[-1] # Filename and extension
     del struct[-1] # Folders in a list
 
     files = []
@@ -62,7 +62,9 @@ def getFile(dir):
 
 # Export the files to the output folder
 def exportPage(content, location, name):
-    pass
+
+    # Check if output folder exists
+    if not os.path.isdir(location): os.mkdir(location)
 
 
 
@@ -70,4 +72,4 @@ def exportPage(content, location, name):
 pages = open('pages.config', 'r').readlines()
 pages = [i.strip() for i in pages]
 
-print(pages)
+exportPage(compilePage('pages/index.html'), 'output', 'index.html')
