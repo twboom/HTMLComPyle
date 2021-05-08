@@ -5,6 +5,7 @@ import os
 # Returns HTML as string
 def compilePage(path):
     output = []
+    files = []
     file = open(path, 'r').readlines()
     file = [i.strip() for i in file]
     if file[0].lower() != '<!doctype html>': print(f'The first line of {path} is not a (valid) HTML5 doctype declaration.')
@@ -15,14 +16,17 @@ def compilePage(path):
             line = line.replace("/>", '')
             line = line.replace('"', '')
             line = line.split("=")
+            files.append(line[1])
             if line[0] == 'script': line = f'<script src="{line[1]}"></script>'
             if line[0] == 'css': line = f'<link rel="stylesheet" href="{line[1]}">'
             output.append(line)
 
         else: output.append(line)
 
-    output = ''.join(output)
-    print(output)
+    return {
+        'lines': output,
+        'files': files
+    }
 
 
 # Get the files to compile
@@ -57,7 +61,7 @@ def getFile(dir):
 
 
 # Export the files to the output folder
-def exportPage(content, location, name, extension):
+def exportPage(content, location, name):
     pass
 
 
@@ -66,4 +70,4 @@ def exportPage(content, location, name, extension):
 pages = open('pages.config', 'r').readlines()
 pages = [i.strip() for i in pages]
 
-compilePage('pages/index.html')
+print(pages)
